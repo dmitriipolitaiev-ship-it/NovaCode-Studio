@@ -32,53 +32,67 @@ import fitness1 from "../assets/projects/fitness/fitness1.jpg";
 import fitness2 from "../assets/projects/fitness/fitness2.jpg";
 import fitness3 from "../assets/projects/fitness/fitness3.jpg";
 
-const projects = [
+interface Project {
+  title: string;
+  category: string;
+  image: string;
+  gallery: string[];
+  description: string;
+}
+
+const projects: Project[] = [
   {
     title: "Luxury Beauty Salon",
     category: "Premium Website",
     image: beauty1,
     gallery: [beauty1, beauty2, beauty3],
-    description: "A refined and elegant website crafted to elevate beauty services into a luxurious digital experience."
+    description:
+      "A refined and elegant website crafted to elevate beauty services into a luxurious digital experience.",
   },
   {
     title: "Restaurant Landing",
     category: "Landing Page",
     image: restaurant1,
     gallery: [restaurant1, restaurant2, restaurant3],
-    description: "A flavorful landing page designed to capture the atmosphere, emotion, and irresistible charm of the restaurant."
+    description:
+      "A flavorful landing page designed to capture the atmosphere, emotion, and irresistible charm of the restaurant.",
   },
   {
     title: "Dental Clinic",
     category: "Corporate Website",
     image: dental1,
     gallery: [dental1, dental2, dental3],
-    description: "A clean, trustworthy medical website built to inspire confidence and deliver clarity for every patient."
+    description:
+      "A clean, trustworthy medical website built to inspire confidence and deliver clarity for every patient.",
   },
   {
     title: "Telegram CRM Bot",
     category: "Automation",
     image: telegram1,
     gallery: [telegram1, telegram2, telegram3],
-    description: "A smart automation system with a sleek interface that boosts sales, simplifies workflows, and responds instantly."
+    description:
+      "A smart automation system with a sleek interface that boosts sales, simplifies workflows, and responds instantly.",
   },
   {
     title: "Construction Company",
     category: "Business Website",
     image: construction1,
     gallery: [construction1, construction2, construction3],
-    description: "A strong and reliable business website showcasing expertise, completed projects, and professional craftsmanship."
+    description:
+      "A strong and reliable business website showcasing expertise, completed projects, and professional craftsmanship.",
   },
   {
     title: "Fitness Club",
     category: "Premium Landing",
     image: fitness1,
     gallery: [fitness1, fitness2, fitness3],
-    description: "A dynamic and energetic landing page that motivates visitors to take action and join the fitness movement."
+    description:
+      "A dynamic and energetic landing page that motivates visitors to take action and join the fitness movement.",
   },
 ];
 
 export default function Portfolio() {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
     <section id="portfolio" className="mx-auto max-w-7xl px-6 py-24">
@@ -93,9 +107,7 @@ export default function Portfolio() {
           Portfolio
         </p>
 
-        <h2 className="text-5xl font-black text-white">
-          Our Latest Projects
-        </h2>
+        <h2 className="text-5xl font-black text-white">Our Latest Projects</h2>
 
         <p className="mt-5 text-slate-400">
           Websites, landing pages and automation systems created for our clients.
@@ -143,9 +155,7 @@ export default function Portfolio() {
             </div>
 
             <div className="p-6">
-              <p className="text-slate-400">
-                {project.description}
-              </p>
+              <p className="text-slate-400">{project.description}</p>
 
               <button className="mt-6 font-semibold text-blue-500 transition hover:text-blue-300">
                 View Project →
