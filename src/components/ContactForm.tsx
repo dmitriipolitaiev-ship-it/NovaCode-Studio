@@ -1,7 +1,17 @@
 import { useState } from "react";
 
+interface FormState {
+  name: string;
+  email: string;
+  telegram: string;
+  phone: string;
+  message: string;
+}
+
+type Status = "idle" | "loading" | "success" | "error";
+
 export default function ContactForm() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
     telegram: "",
@@ -9,17 +19,18 @@ export default function ContactForm() {
     message: "",
   });
 
-  const [status, setStatus] = useState("idle");
+  const [status, setStatus] = useState<Status>("idle");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
-
     setStatus("loading");
 
     try {
@@ -44,23 +55,26 @@ export default function ContactForm() {
   if (status === "success") {
     return (
       <div className="relative w-full max-w-4xl mx-auto py-24 text-center">
-
-        <div className="
+        <div
+          className="
           absolute inset-0 
           animate-ping 
           bg-cyan-400/40 
           rounded-full 
           blur-3xl 
           scale-150
-        " />
+        "
+        />
 
-        <div className="
+        <div
+          className="
           absolute inset-0 
           bg-cyan-500/30 
           rounded-full 
           blur-2xl 
           animate-pulse
-        " />
+        "
+        />
 
         <div className="relative z-10">
           <h1 className="text-6xl font-bold text-white mb-6">
@@ -92,8 +106,10 @@ export default function ContactForm() {
 
   /* FORM SCREEN */
   return (
-    <div className="relative w-full max-w-5xl mx-auto p-12 rounded-3xl">
-
+    <form
+      onSubmit={handleSubmit}
+      className="relative w-full max-w-5xl mx-auto p-12 rounded-3xl"
+    >
       {/* VIDEO BACKGROUND */}
       <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none z-[1]">
         <video
@@ -129,15 +145,39 @@ export default function ContactForm() {
           Project details
         </h3>
 
-        <Field label="Your Name" name="name" value={form.name} onChange={handleChange} />
-        <Field label="Email" name="email" value={form.email} onChange={handleChange} />
-        <Field label="Telegram (@username)" name="telegram" value={form.telegram} onChange={handleChange} />
-        <Field label="Phone Number" name="phone" value={form.phone} onChange={handleChange} />
-        <FieldTextarea label="Describe your project" name="message" value={form.message} onChange={handleChange} />
+        <Field
+          label="Your Name"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+        />
+        <Field
+          label="Email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+        />
+        <Field
+          label="Telegram (@username)"
+          name="telegram"
+          value={form.telegram}
+          onChange={handleChange}
+        />
+        <Field
+          label="Phone Number"
+          name="phone"
+          value={form.phone}
+          onChange={handleChange}
+        />
+        <FieldTextarea
+          label="Describe your project"
+          name="message"
+          value={form.message}
+          onChange={handleChange}
+        />
 
         <button
           type="submit"
-          onClick={handleSubmit}
           className="
             w-full px-10 py-4 mt-10
             bg-gradient-to-r from-cyan-500 to-blue-600
@@ -151,12 +191,19 @@ export default function ContactForm() {
           {status === "loading" ? "Sending..." : "Submit Request"}
         </button>
       </div>
-    </div>
+    </form>
   );
 }
 
 /* SUPER VISIBLE FIELD */
-function Field({ label, name, value, onChange }) {
+interface FieldProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function Field({ label, name, value, onChange }: FieldProps) {
   return (
     <div className="mb-8">
       <label className="text-white text-xl font-bold mb-3 block">
@@ -188,7 +235,19 @@ function Field({ label, name, value, onChange }) {
 }
 
 /* SUPER VISIBLE TEXTAREA */
-function FieldTextarea({ label, name, value, onChange }) {
+interface FieldTextareaProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+function FieldTextarea({
+  label,
+  name,
+  value,
+  onChange,
+}: FieldTextareaProps) {
   return (
     <div className="mb-8">
       <label className="text-white text-xl font-bold mb-3 block">
