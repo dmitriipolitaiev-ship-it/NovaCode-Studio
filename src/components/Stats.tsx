@@ -1,6 +1,12 @@
 import FlipNumber from "./FlipNumber";
 
-const stats = [
+interface StatItem {
+  number: number | string;
+  title: string;
+  animate: boolean;
+}
+
+const stats: StatItem[] = [
   { number: 50, title: "Completed Projects", animate: true },
   { number: 25, title: "Business Clients", animate: true },
   { number: 99, title: "Client Satisfaction", animate: true },
