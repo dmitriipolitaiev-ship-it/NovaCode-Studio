@@ -11,11 +11,13 @@ export default function ContactForm() {
 
   const [status, setStatus] = useState("idle");
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
 
     setStatus("loading");
